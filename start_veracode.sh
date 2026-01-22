@@ -3,7 +3,7 @@
 #### Setup variables ####
 
 # Stop the script as soon as the first command fails
-set -xe #for troubleshooting and error validation
+set -x #for troubleshooting and error validation
 
 # Set WEBHOOK to webhook secret (without URL)
 WEBHOOK=$1
