@@ -101,6 +101,12 @@ pipeline {
             }
         }
 
+        stage ('Run Veracode DAST Essentials Scan') { 
+      steps { 
+       sh './start_veracode.sh $VERACODE_WEBHOOK $VERACODE_SECRET_ID $VERACODE_SECRET_ID_KEY'
+      } 
+    } 
+
         // only works on *nix, as we're building a Linux image
         //  uses the natively installed docker
         stage ('Deploy') {
