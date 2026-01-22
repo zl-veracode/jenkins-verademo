@@ -3,7 +3,7 @@
 #### Setup variables ####
 
 # Stop the script as soon as the first command fails
-set -euo pipefail
+set -xe #for troubleshooting and error validation
 
 # Set WEBHOOK to webhook secret (without URL)
 WEBHOOK=$1
