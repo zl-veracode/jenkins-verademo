@@ -102,13 +102,13 @@ pipeline {
         }
 
         stage ('Run Veracode DAST Essentials Scan') { 
-            withCredentials([ usernamePassword ( 
+            steps {     
+                withCredentials([ usernamePassword ( 
                     credentialsId: 'veracode_login', usernameVariable: 'VERACODE_API_ID', passwordVariable: 'VERACODE_API_KEY') ]
                            [ veracode_webhook (
                     credentialsID: 'VERACODE_WEBHOOK', variable: 'VERACODE_WEBHOOK')  ]         
-                           ) 
-      steps { 
-       sh './start_veracode.sh $VERACODE_WEBHOOK $VERACODE_SECRET_ID $VERACODE_SECRET_ID_KEY'
+                           )
+                sh './start_veracode.sh $VERACODE_WEBHOOK $VERACODE_SECRET_ID $VERACODE_SECRET_ID_KEY'
       } 
     } 
 
