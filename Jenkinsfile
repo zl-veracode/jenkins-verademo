@@ -108,7 +108,7 @@ pipeline {
                            [ veracode_webhook (
                     credentialsID: 'VERACODE_WEBHOOK', variable: 'VERACODE_WEBHOOK')  ]         
                            )
-                sh './start_veracode.sh $VERACODE_WEBHOOK $VERACODE_SECRET_ID $VERACODE_SECRET_ID_KEY'
+                sh './start_veracode.sh $VERACODE_WEBHOOK $VERACODE_API_ID $VERACODE_API_KEY'
       } 
     } 
 
