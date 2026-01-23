@@ -7,6 +7,9 @@ pipeline {
 
     environment {
         VERACODE_APP_NAME = 'Verademo'      // App Name in the Veracode Platform
+        VERACODE_WEBHOOK = credentials('VERACODE_WEBHOOK')
+        VERACODE_SECRET_ID = credentials('VERACODE_SECRET_ID')
+        VERACODE_SECRET_ID_KEY = credentials('VERACODE_SECRET_ID_KEY')
     }
 
     // this is optional on Linux, if jenkins does not have access to your locally installed docker
@@ -103,11 +106,6 @@ pipeline {
 
         stage ('Run Veracode DAST Essentials Scan') { 
             steps {     
-                withCredentials([ usernamePassword ( 
-                    credentialsId: 'veracode_login', usernameVariable: 'VERACODE_API_ID', passwordVariable: 'VERACODE_API_KEY') ]
-                           [ veracode_webhook (
-                    credentialsID: 'VERACODE_WEBHOOK', variable: 'VERACODE_WEBHOOK')  ]         
-                           )
                 sh './start_veracode.sh $VERACODE_WEBHOOK $VERACODE_API_ID $VERACODE_API_KEY'
       } 
     } 
