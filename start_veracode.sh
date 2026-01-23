@@ -41,7 +41,7 @@ echo "$VERACODE_AUTH_SCHEMA id=$API_ID,ts=$timestamp,nonce=$nonce,sig=$signature
 signing_data="id=$API_ID&host=$API_ENDPOINT&url=$API_PATH/$WEBHOOK&method=POST"
 
 VERACODE_AUTH_HEADER=$(generate_hmac_header $signing_data)
-SCAN_ID=`curl --silent -X POST -H "Authorization: $VERACODE_AUTH_HEADER" --data "" https://$API_ENDPOINT$API_PATH/$WEBHOOK | jq .data.scanId`
+SCAN_ID=`curl --silent -X POST -H "Authorization: $VERACODE_AUTH_HEADER" --data "" https://$API_ENDPOINT$API_PATH/$WEBHOOK | jq .data.running_scan_id`
 
 # Check if a positive integer was returned as SCAN_ID
 if ! [ $SCAN_ID -ge 0 ] 2>/dev/null
