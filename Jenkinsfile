@@ -106,9 +106,7 @@ pipeline {
 
         stage ('Run Veracode DAST Essentials Scan') { 
             steps { 
-                echo "Veacode DAST" 
-                echo '$VERACODE_WEBHOOK, $VERACODE_SECRET_ID'
-                //sh './start_veracode.sh $VERACODE_WEBHOOK $VERACODE_SECRET_ID $VERACODE_SECRET_ID_KEY'
+                sh './start_veracode.sh' // $VERACODE_WEBHOOK $VERACODE_SECRET_ID $VERACODE_SECRET_ID_KEY'
                 
       } 
     } 
