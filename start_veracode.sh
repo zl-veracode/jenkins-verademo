@@ -13,7 +13,7 @@ API_ID=$(echo $2 | cut -d "-" -f 2)
 
 # Set the Veracode API SECRET
 API_SECRET=$(echo $3 | cut -d "-" -f 2)
-
+echo "API ID Length: ${#API_ID}"
 # Set the API endpoint
 API_ENDPOINT="api.veracode.com"
 API_PATH="/dae/api/core-api/webhook"
@@ -41,7 +41,7 @@ echo "$VERACODE_AUTH_SCHEMA id=$API_ID,ts=$timestamp,nonce=$nonce,sig=$signature
 signing_data="id=$API_ID&host=$API_ENDPOINT&url=$API_PATH/$WEBHOOK&method=POST"
 
 VERACODE_AUTH_HEADER=$(generate_hmac_header $signing_data)
-SCAN_ID='curl -v -X POST -H "Authorization: $VERACODE_AUTH_HEADER" --data "" https://$API_ENDPOINT$API_PATH/$WEBHOOK' #| awk -F \'[,:]\' \'{print $5}\' | sed \'s/}}//\''
+SCAN_ID='curl --silent -X POST -H "Authorization: $VERACODE_AUTH_HEADER" --data "" https://$API_ENDPOINT$API_PATH/$WEBHOOK' #| awk -F \'[,:]\' \'{print $5}\' | sed \'s/}}//\''
 curl -v -X POST -H "Authorization: $VERACODE_AUTH_HEADER" --data "" https://$API_ENDPOINT$API_PATH/$WEBHOOK
 # Check if a positive integer was returned as SCAN_ID
 #if ! [ $SCAN_ID -ge 0 ] 2>/dev/null
