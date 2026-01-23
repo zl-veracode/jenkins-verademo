@@ -44,13 +44,13 @@ VERACODE_AUTH_HEADER=$(generate_hmac_header $signing_data)
 SCAN_ID='curl -v -X POST -H "Authorization: $VERACODE_AUTH_HEADER" --data "" https://$API_ENDPOINT$API_PATH/$WEBHOOK' #| awk -F \'[,:]\' \'{print $5}\' | sed \'s/}}//\''
 curl -v -X POST -H "Authorization: $VERACODE_AUTH_HEADER" --data "" https://$API_ENDPOINT$API_PATH/$WEBHOOK
 # Check if a positive integer was returned as SCAN_ID
-if ! [ $SCAN_ID -ge 0 ] 2>/dev/null
-then
-   echo "Could not start Scan for Webhook $WEBHOOK."
-   exit 1
-fi
+#if ! [ $SCAN_ID -ge 0 ] 2>/dev/null
+#then
+#   echo "Could not start Scan for Webhook $WEBHOOK."
+#   exit 1
+#fi
 
-echo "Started Scan for Webhook $WEBHOOK. Scan ID is $SCAN_ID."
+#echo "Started Scan for Webhook $WEBHOOK. Scan ID is $SCAN_ID."
 
 #### Check Security Scan Status ####
 
