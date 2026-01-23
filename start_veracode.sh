@@ -42,7 +42,7 @@ signing_data="id=$API_ID&host=$API_ENDPOINT&url=$API_PATH/$WEBHOOK&method=POST"
 
 VERACODE_AUTH_HEADER=$(generate_hmac_header $signing_data)
 SCAN_ID='curl -v -X POST -H "Authorization: $VERACODE_AUTH_HEADER" --data "" https://$API_ENDPOINT$API_PATH/$WEBHOOK' #| awk -F \'[,:]\' \'{print $5}\' | sed \'s/}}//\''
-
+echo $SCAN_ID
 # Check if a positive integer was returned as SCAN_ID
 if ! [ $SCAN_ID -ge 0 ] 2>/dev/null
 then
