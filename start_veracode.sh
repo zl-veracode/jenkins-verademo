@@ -58,23 +58,23 @@ echo "Started Scan for Webhook $WEBHOOK. Scan ID is $SCAN_ID."
 STATUS=100
 
 # Run the scan until the status is not queued (100) or running (101) anymore
-while [ $STATUS -le 101 ]
-do
-   echo "Scan Status currently is $STATUS (101 = Running)"
+#while [ $STATUS -le 101 ]
+#do
+#   echo "Scan Status currently is $STATUS (101 = Running)"
 
    # Only poll every minute
-   sleep 60
+#   sleep 60
 
-signing_data="id=$API_ID&host=$API_ENDPOINT&url=$API_PATH/$WEBHOOK/scans/$SCAN_ID/status&method=GET"
+#signing_data="id=$API_ID&host=$API_ENDPOINT&url=$API_PATH/$WEBHOOK/scans/$SCAN_ID/status&method=GET"
 
-VERACODE_AUTH_HEADER=$(generate_hmac_header $signing_data)
+#VERACODE_AUTH_HEADER=$(generate_hmac_header $signing_data)
 
    # Refresh status
-    STATUS='curl --silent -H "Authorization: $VERACODE_AUTH_HEADER" https://$API_ENDPOINT$API_PATH/$WEBHOOK/scans/$SCAN_ID/status'
+#    STATUS='curl --silent -H "Authorization: $VERACODE_AUTH_HEADER" https://$API_ENDPOINT$API_PATH/$WEBHOOK/scans/$SCAN_ID/status'
 
-done
+#done
 
-echo "Scan finished with status $STATUS."
+#echo "Scan finished with status $STATUS."
 
 #### Download Scan Report ####
 
