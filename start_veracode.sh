@@ -70,7 +70,7 @@ signing_data="id=$API_ID&host=$API_ENDPOINT&url=$API_PATH/$WEBHOOK/scans/$SCAN_I
 VERACODE_AUTH_HEADER=$(generate_hmac_header $signing_data)
 
    # Refresh status
-    STATUS=`curl --silent -H "Authorization: $VERACODE_AUTH_HEADER" https://$API_ENDPOINT$API_PATH/$WEBHOOK/scans/$SCAN_ID/status | jq .data.status.status_code`
+    STATUS=`curl --silent -H "Authorization: $VERACODE_AUTH_HEADER" https://$API_ENDPOINT$API_PATH/$WEBHOOK/scans/$SCAN_ID/status | awk -F '[,:]' '{print $5}' | sed 's/}}//' '
 
 done
 
