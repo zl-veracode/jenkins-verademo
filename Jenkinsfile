@@ -106,6 +106,8 @@ pipeline {
 
         stage ('Veracode IAC Scan') {
             steps {
+                withCredentials([ usernamePassword ( 
+                    credentialsId: 'veracode_login', usernameVariable: 'VERACODE_API_ID', passwordVariable: 'VERACODE_API_KEY') ]) {
                 // Unix: 
                 //sh '''
                 //    echo "Downloading Veracode CLI..."
@@ -128,10 +130,8 @@ pipeline {
                     # 2. Run IAC Scan
                     Write-Host "Starting IaC Scan..."
                     veracode scan --source . --type directory --format table
-                    
-                    
-                    
                 '''
+                }
                 
             }
         }
