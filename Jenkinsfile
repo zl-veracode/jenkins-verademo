@@ -119,6 +119,7 @@ pipeline {
                 //Windows: 
                 powershell '''
                     $ErrorActionPreference = "Stop"
+                    [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
                     $env:VERACODE_API_KEY_ID = $env:VERACODE_SECRET_ID
                     $env:VERACODE_API_KEY_SECRET = $env:VERACODE_SECRET_ID_KEY
                     Write-Host "Downloading Veracode CLI..."
