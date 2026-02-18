@@ -106,8 +106,6 @@ pipeline {
 
         stage ('Veracode IAC Scan') {
             steps {
-                withCredentials([ usernamePassword ( 
-                    credentialsId: 'veracode-api-creds', usernameVariable: 'VERACODE_SECRET_ID', passwordVariable: 'VERACODE_SECRET_ID_KEY') ]) {
                 // Unix: 
                 //sh '''
                 //    echo "Downloading Veracode CLI..."
@@ -121,8 +119,9 @@ pipeline {
                 //Windows: 
                 powershell '''
                     $ErrorActionPreference = "Stop"
+                    $env:VERACODE_API_KEY_ID = $env:VERACODE_SECRET_ID
+                    $env:VERACODE_API_KEY_SECRET = $env:VERACODE_SECRET_ID_KEY
                     Write-Host "Downloading Veracode CLI..."
-                    Write-Host "Using API ID: $env:VERACODE_SECRET_ID"
 
                     # 1. Dwonload and install
                     Set-ExecutionPolicy Bypass -Scope Process -Force
@@ -132,7 +131,6 @@ pipeline {
                     Write-Host "Starting IaC Scan..."
                     veracode scan --source . --type directory --format table
                 '''
-                }
                 
             }
         }
