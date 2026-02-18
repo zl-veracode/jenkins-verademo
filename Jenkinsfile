@@ -106,14 +106,33 @@ pipeline {
 
         stage ('Veracode IAC Scan') {
             steps {
-                sh '''
-                    echo "Downloading Veracode CLI..."
-                    curl -fsS https://tools.veracode.com/veracode-cli/install.ps1 | sh
+                // Unix: 
+                //sh '''
+                //    echo "Downloading Veracode CLI..."
+                //    curl -fsS https://tools.veracode.com/veracode-cli/install | sh
+                //'''
+                //sh '''
+                //    echo "Starting IAC Scan..."
+                //    ./veracode scan --source . --type directory --format table
+                //'''
+
+                //Windows: 
+                powershell '''
+                    $ErrorActionPreference = "Stop"
+                    Write-Host "Downloading Veracode CLI..."
+
+                    // 1. Dwonload and install
+                    Set-ExecutionPolicy Bypass -Scope Process -Force
+                    [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
+                    iex ((New-Object System.Net.WebClient).DownloadString('https://tools.veracode.com/veracode-cli/install.ps1'))
+                    // 2. Run IAC Scan
+                    Write-Host "Starting IaC Scan..."
+                    veracode scan --source . --type director --format table
+                    
+                    
+                    
                 '''
-                sh '''
-                    echo "Starting IAC Scan..."
-                    ./veracode scan --source . --type directory --format table
-                '''
+                
             }
         }
 
