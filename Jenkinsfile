@@ -108,7 +108,7 @@ pipeline {
             steps {
                 sh '''
                     echo "Downloading Veracode CLI..."
-                    curl -fsS https://tools.veracode.com/veracode-cli/install | sh
+                    curl -fsS https://tools.veracode.com/veracode-cli/install.ps1 | sh
                 '''
                 sh '''
                     echo "Starting IAC Scan..."
