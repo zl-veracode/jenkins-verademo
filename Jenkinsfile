@@ -106,14 +106,18 @@ pipeline {
 
         stage ('Veracode IAC Scan') {
             steps {
-                // Unix: 
+                // Unix:
                 //sh '''
+                //    export VERACODE_API_KEY_ID=$VERACODE_SECRET_ID
+                //    export VERACODE_API_KEY_SECRET=$VERACODE_SECRET_ID_KEY
+                //    #Download the CLI
                 //    echo "Downloading Veracode CLI..."
                 //    curl -fsS https://tools.veracode.com/veracode-cli/install | sh
-                //'''
-                //sh '''
+                //    #Start the IAC Scan
                 //    echo "Starting IAC Scan..."
                 //    ./veracode scan --source . --type directory --format table
+                //    #Optional -- run the Container Scan against an image
+                //    #./veracode scan --source ${IMAGE_NAME} --type image --format table
                 //'''
 
                 //Windows: 
@@ -130,7 +134,8 @@ pipeline {
                     iex ((New-Object System.Net.WebClient).DownloadString('https://tools.veracode.com/veracode-cli/install.ps1'))
                     # 2. Run IAC Scan
                     Write-Host "Starting IaC Scan..."
-                    veracode scan --source . --type directory --format table
+                    veracode policy get zl-test-container-policy
+                    veracode scan --source . --type directory --policy zl-test-container-policy.rego --format table
                 '''
                 
             }
