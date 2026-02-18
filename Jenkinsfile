@@ -122,6 +122,7 @@ pipeline {
                 powershell '''
                     $ErrorActionPreference = "Stop"
                     Write-Host "Downloading Veracode CLI..."
+                    Write-Host "Using API ID: $env:VERACODE_SECRET_ID"
 
                     # 1. Dwonload and install
                     Set-ExecutionPolicy Bypass -Scope Process -Force
