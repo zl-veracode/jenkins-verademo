@@ -115,7 +115,8 @@ pipeline {
                 //    curl -fsS https://tools.veracode.com/veracode-cli/install | sh
                 //    #Start the IAC Scan
                 //    echo "Starting IAC Scan..."
-                //    ./veracode scan --source . --type directory --format table
+                //    ./veracode policy get zl-test-container-policy
+                //    ./veracode scan --source . --type directory --policy zl-test-container-policy.rego --format table
                 //    #Optional -- run the Container Scan against an image
                 //    #./veracode scan --source ${IMAGE_NAME} --type image --format table
                 //'''
