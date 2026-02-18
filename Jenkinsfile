@@ -121,13 +121,13 @@ pipeline {
                     $ErrorActionPreference = "Stop"
                     Write-Host "Downloading Veracode CLI..."
 
-                    // 1. Dwonload and install
+                    # 1. Dwonload and install
                     Set-ExecutionPolicy Bypass -Scope Process -Force
                     [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
                     iex ((New-Object System.Net.WebClient).DownloadString('https://tools.veracode.com/veracode-cli/install.ps1'))
-                    // 2. Run IAC Scan
+                    # 2. Run IAC Scan
                     Write-Host "Starting IaC Scan..."
-                    veracode scan --source . --type director --format table
+                    veracode scan --source . --type directory --format table
                     
                     
                     
