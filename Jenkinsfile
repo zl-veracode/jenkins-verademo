@@ -106,7 +106,14 @@ pipeline {
 
         stage ('Veracode IAC Scan') {
             steps {
-                sh 'veracode scan --source . --type repo'
+                sh '''
+                    echo "Downloading Veracode CLI..."
+                    curl -fsS https://tools.veracode.com/veracode-cli/install | sh
+                '''
+                sh '''
+                    echo "Starting IAC Scan..."
+                    ./veracode scan --source . --type directory --format table
+                '''
             }
         }
 
